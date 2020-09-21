@@ -1,0 +1,80 @@
+﻿@page "/reg"
+@using Microsoft.AspNetCore.SignalR.Client
+@using BlazorSuviIdent.Shared
+@inject NavigationManager _nm
+
+
+@if (_greske.Count > 0)
+{
+	<p><b>Greske:</b></p>
+	<ul>
+		@foreach (string greska in _greske)
+		{
+			<li>@greska</li>
+		}
+	</ul>
+}
+
+<EditForm Model="_reg" OnSubmit="Registruj">
+	<p>Ime:</p>
+	<InputText @bind-Value="_reg.Uname" />
+	<p>Mejl:</p>
+	<InputText @bind-Value="_reg.Mejl" />
+	<p>Sifra:</p>
+	<InputText @bind-Value="_reg.Sifra" />
+	<p>Rola:</p>
+	<p>
+		<select @bind="_reg.Rola">
+			@foreach (string role in _roles)
+			{
+				<option>@role</option>
+			}
+		</select>
+	</p>
+	<p><button class="btn-primary" type="submit">Registracija</button></p>
+</EditForm>
+
+
+@code
+{
+	private Registracija _reg = new Registracija();
+	private List<string> _roles = new List<string>();
+	private List<string> _greske = new List<string>();
+	private HubConnection _hc;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_hc = new HubConnectionBuilder().WithUrl(_nm.ToAbsoluteUri("um")).Build();
+
+		_hc.On<List<string>>("RecRoles", (roles) =>
+		{
+			_roles = roles;
+			StateHasChanged();
+		});
+
+		_hc.On<bool, List<string>>("RegResult", (uspeh, greske) =>
+		{
+			if (uspeh)
+				_nm.NavigateTo("login");
+			else
+			{
+				_greske = greske;
+				StateHasChanged();
+			}
+		});
+
+		await _hc.StartAsync();
+		await _hc.SendAsync("GetRoles");
+	}
+
+	private async Task Registruj()
+	{
+		_greske = new List<string>();
+
+		if (string.IsNullOrEmpty(_reg.Rola))
+			_reg.Rola = _roles[0]; //dumbass select
+
+		await _hc.SendAsync("Register", _reg);
+		_reg = new Registracija();
+	}
+}
