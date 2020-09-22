@@ -30,10 +30,10 @@ namespace BlazorSuviIdent.Server.Controllers
 			if (!rez.Succeeded)
 			{
 				_logger.LogWarning($"Failed to log in");
-				return BadRequest();
+				return Ok(false);
 			}
 			_logger.LogInformation("Logged in user.");
-			return Ok();
+			return Ok(true);
         }
     }
 }

@@ -6,34 +6,32 @@
 @inject HttpClient _hc
 
 
-@if (_greske.Count > 0)
-{
-	<p><b>Greske:</b></p>
-	<ul>
-		@foreach (string greska in _greske)
-		{
-			<li>@greska</li>
-		}
-	</ul>
-}
+
+<p><b>@_greska</b></p>
+
 
 <EditForm Model="_reg" OnSubmit="LogIn">
 	<p>Ime:</p>
 	<InputText @bind-Value="_reg.Uname" />
 	<p>Sifra:</p>
 	<InputText @bind-Value="_reg.Sifra" />
-	<p><button class="btn-primary" type="submit">Registracija</button></p>
+	<p><button class="btn-primary" type="submit">Log in</button></p>
 </EditForm>
 
 
 @code
 {
 	private Registracija _reg = new Registracija();
-	private List<string> _greske = new List<string>();
+	private string _greska;
 
 
 	private async Task LogIn()
 	{
-		await _hc.PostJsonAsync("LogIn", _reg);
+		_greska = "";
+		if (await _hc.PostJsonAsync<bool>("LogIn", _reg))
+			_nm.NavigateTo("/", forceLoad : true);
+		else
+			_greska = "No go";
+
 	}
 }

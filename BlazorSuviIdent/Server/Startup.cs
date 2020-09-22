@@ -9,6 +9,7 @@ using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication;
+using System.IdentityModel.Tokens.Jwt;
 
 namespace BlazorSuviIdent.Server
 {
@@ -35,7 +36,14 @@ namespace BlazorSuviIdent.Server
 				.AddEntityFrameworkStores<Baza>();
 
 			services.AddIdentityServer()
-				.AddApiAuthorization<IdentityUser, Baza>();
+				.AddApiAuthorization<IdentityUser, Baza>(options => {
+					options.IdentityResources["openid"].UserClaims.Add("name");
+					options.ApiResources.Single().UserClaims.Add("name");
+					options.IdentityResources["openid"].UserClaims.Add("role");
+					options.ApiResources.Single().UserClaims.Add("role");
+				});
+
+			JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Remove("role");
 
 			services.AddAuthentication()
 				.AddIdentityServerJwt();
