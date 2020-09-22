@@ -35,5 +35,7 @@ namespace BlazorSuviIdent.Server.Controllers
 			_logger.LogInformation("Logged in user.");
 			return Ok(true);
         }
-    }
+
+		
+	}
 }

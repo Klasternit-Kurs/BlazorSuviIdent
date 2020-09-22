@@ -1,0 +1,29 @@
+﻿@page "/srauth"
+@using Microsoft.AspNetCore.SignalR.Client
+@inject NavigationManager _nm
+
+<h3>SignalRAuth</h3>
+<button class="btn btn-primary" @onclick="AuthTest">Svi korisnici</button>
+<button class="btn-danger" @onclick="AuthAdmin">Samo za admine</button>
+
+@code 
+{
+	private HubConnection _hc;
+
+	protected override async Task OnInitializedAsync()
+	{
+		_hc = new HubConnectionBuilder().WithUrl(_nm.ToAbsoluteUri("um")).Build();
+		await _hc.StartAsync();
+	}
+
+	private async Task AuthTest()
+	{
+		await _hc.SendAsync("Auth");
+	}
+
+	private async Task AuthAdmin()
+	{
+		await _hc.SendAsync("AuthAdmin");
+	}
+
+}
