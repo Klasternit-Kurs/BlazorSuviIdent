@@ -1,4 +1,7 @@
 ﻿@page "/claims"
+@attribute [Authorize]
+@using Microsoft.AspNetCore.Authorization
+
 <h3>Claims</h3>
 
 <AuthorizeView>

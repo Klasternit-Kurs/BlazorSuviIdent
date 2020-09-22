@@ -1,4 +1,6 @@
 ﻿@page "/srauth"
+@attribute [Authorize]
+@using Microsoft.AspNetCore.Authorization
 @using Microsoft.AspNetCore.SignalR.Client
 @inject NavigationManager _nm
 
@@ -6,7 +8,7 @@
 <button class="btn btn-primary" @onclick="AuthTest">Svi korisnici</button>
 <button class="btn-danger" @onclick="AuthAdmin">Samo za admine</button>
 
-@code 
+@code
 {
 	private HubConnection _hc;
 
