@@ -13,10 +13,8 @@ namespace BlazorSuviIdent.Server
 	public class Baza : ApiAuthorizationDbContext<IdentityUser>
 	{
 		public Baza(
-			DbContextOptions options,
-			IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions)
-		{
-		}
+			DbContextOptions<Baza> options,
+			IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions) {}
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{

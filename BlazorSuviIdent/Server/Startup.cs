@@ -27,6 +27,9 @@ namespace BlazorSuviIdent.Server
 			services.AddDbContext<Baza>(options =>
 				options.UseSqlServer(
 					Configuration.GetConnectionString("Baza")));
+			services.AddDbContext<Baza2>(options =>
+				options.UseSqlServer(
+					Configuration.GetConnectionString("Baza")));
 
 			services.AddIdentity<IdentityUser, IdentityRole>()
 				.AddUserManager<UserManager<IdentityUser>>()

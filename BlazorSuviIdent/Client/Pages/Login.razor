@@ -29,7 +29,7 @@
 	{
 		_greska = "";
 		if (await _hc.PostJsonAsync<bool>("LogIn", _reg))
-			_nm.NavigateTo("/", forceLoad : true);
+			_nm.NavigateTo("/", forceLoad: true);
 		else
 			_greska = "No go";
 

@@ -12,16 +12,18 @@ namespace BlazorSuviIdent.Server.Hubs
 {
 	public class UserMan : Hub
 	{
-		public UserMan(RoleManager<IdentityRole> rm, UserManager<IdentityUser> um, ILogger<UserMan> logger)
+		public UserMan(RoleManager<IdentityRole> rm, UserManager<IdentityUser> um, ILogger<UserMan> logger, Baza2 b2)
 		{
 			_rm = rm;
 			_um = um;
 			_logger = logger;
+			_dbTest = b2;
 		}
 
 		private readonly RoleManager<IdentityRole> _rm;
 		private readonly UserManager<IdentityUser> _um;
 		private readonly ILogger<UserMan> _logger;
+		private readonly Baza2 _dbTest;
 
 		public async Task GetRoles() =>
 			await Clients.Caller.SendAsync("RecRoles", _rm.Roles.Select(r => r.Name).ToList());
@@ -48,6 +50,9 @@ namespace BlazorSuviIdent.Server.Hubs
 		[Authorize]
 		public void Auth()
 		{
+			_dbTest.Blas.Add(new Bla());
+			_dbTest.SaveChanges();
+
 			_logger.LogInformation("Call authorized");
 		}
 
