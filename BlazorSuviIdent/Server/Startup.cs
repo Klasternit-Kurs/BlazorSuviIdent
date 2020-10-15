@@ -84,6 +84,7 @@ namespace BlazorSuviIdent.Server
 				endpoints.MapRazorPages();
 				endpoints.MapControllers();
 				endpoints.MapHub<Hubs.UserMan>("um");
+				endpoints.MapHub<Hubs.Alerter>("al");
 				endpoints.MapFallbackToFile("index.html");
 			});
 		}

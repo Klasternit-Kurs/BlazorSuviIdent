@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using BlazorSuviIdent.Shared;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,18 +9,18 @@ namespace BlazorSuviIdent.Server
 {
 	public class Baza2 : DbContext
 	{
+		public DbSet<Osoba> Osobas { get; set; }
+
 		public Baza2(DbContextOptions<Baza2> options)
 				: base(options) { }
-		public DbSet<Bla> Blas { get; set; }
-
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.Entity<Bla>().HasKey(b => b.Asd);
+			modelBuilder.Entity<Osoba>().HasKey(b => b.ID);
+
+			modelBuilder.Entity<Osoba>().HasData(new Osoba { ID = Guid.NewGuid().ToString(), Ime = "Pera", Prezime = "Peric" },
+				new Osoba { ID = Guid.NewGuid().ToString(), Ime = "Neko", Prezime = "Nekic" });
 		}
 	}
 
-	public class Bla
-	{
-		public int Asd { get; set; }
-	}
+
 }

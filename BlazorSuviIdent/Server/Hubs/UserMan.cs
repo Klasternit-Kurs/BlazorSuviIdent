@@ -50,8 +50,6 @@ namespace BlazorSuviIdent.Server.Hubs
 		[Authorize]
 		public void Auth()
 		{
-			_dbTest.Blas.Add(new Bla());
-			_dbTest.SaveChanges();
 
 			_logger.LogInformation("Call authorized");
 		}

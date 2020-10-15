@@ -1,0 +1,67 @@
+﻿@page "/editor"
+@using BlazorSuviIdent.Shared
+@using Microsoft.AspNetCore.SignalR.Client
+@inject NavigationManager _nm 
+@inject HttpClient _hc
+<h3>OsobeEditor</h3>
+
+<p>@_o.Ime @_o.Prezime</p>
+<MatTable Items="_osobe" class="mat-elevation-z5">
+	<MatTableHeader>
+		<th>Ime</th>
+		<th>Prezime</th>
+	</MatTableHeader>
+	<MatTableRow>
+		<td>@context.Ime</td>
+		<td>@context.Prezime</td>
+		<td><MatIconButton Icon="build" OnClick="() => Edit(context)"></MatIconButton></td>
+	</MatTableRow>
+</MatTable>
+
+<MatDialog @bind-IsOpen="@_editor">
+	<MatDialogTitle>Editor</MatDialogTitle>
+	<MatDialogContent>
+		<EditForm Model="_o">
+			<p>Ime:<MatTextField @bind-Value="_o.Ime" /></p>
+			<p>Prezime:<MatTextField @bind-Value="_o.Prezime" /></p>
+		</EditForm>
+	</MatDialogContent>
+	<MatDialogActions>
+		<MatButton OnClick="@(e => { _editor = false; _o = new Osoba(); Fetch(); })">No Thanks</MatButton>
+		<MatButton OnClick="@(e => { _editor = false; Upd(); })">OK</MatButton>
+	</MatDialogActions>
+</MatDialog>
+
+@code
+{
+	private List<Osoba> _osobe = new List<Osoba>();
+	private Osoba _o = new Osoba();
+	private bool _editor;
+	private HubConnection _hubc;
+	protected override async Task OnInitializedAsync()
+	{
+		_hubc = new HubConnectionBuilder().WithUrl(_nm.ToAbsoluteUri("al")).Build();
+		_hubc.On("Izmena", () => Fetch());
+		await _hubc.StartAsync();
+		await Fetch();
+	}
+
+	private async Task Fetch()
+	{
+		_osobe = await _hc.GetFromJsonAsync<List<Osoba>>("Osobe");
+		StateHasChanged();
+	}
+
+	public async Task Upd()
+	{
+		await _hc.PostJsonAsync("Osobe", _o);
+		await _hubc.SendAsync("Izmena");
+		StateHasChanged();
+	}
+
+	private void Edit(Osoba o)
+	{
+		_o = o;
+		_editor = true;
+	}
+}

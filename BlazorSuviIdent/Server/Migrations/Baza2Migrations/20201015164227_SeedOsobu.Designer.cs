@@ -3,14 +3,16 @@ using BlazorSuviIdent.Server;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BlazorSuviIdent.Server.Migrations.Baza2Migrations
 {
     [DbContext(typeof(Baza2))]
-    partial class Baza2ModelSnapshot : ModelSnapshot
+    [Migration("20201015164227_SeedOsobu")]
+    partial class SeedOsobu
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
