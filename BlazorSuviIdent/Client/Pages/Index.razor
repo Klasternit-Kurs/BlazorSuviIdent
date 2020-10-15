@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using zklj
+@using BlazorSuviIdent.Shared
 @inject Primer _p
 @inject ProbniServis.ProbniServisClient _klijent
 
@@ -23,5 +24,9 @@
 	private async Task grpcGO()
 	{
 		_odServera = (await _klijent.ProbniPozivAsync(new TestPoruka { Nesto = _unos })).Nesto;
+
+		Osoba o = new Osoba();
+		(_, _, string c) = o;
+
 	}
 }
