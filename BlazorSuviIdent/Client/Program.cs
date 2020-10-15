@@ -12,6 +12,10 @@ using Microsoft.AspNetCore.Components.WebAssembly.Authentication.Internal;
 using System.Security.Claims;
 using System.Text.Json;
 using System.Linq;
+using Microsoft.AspNetCore.Components;
+using Grpc.Net.Client.Web;
+using Grpc.Net.Client;
+using zklj;
 
 namespace BlazorSuviIdent.Client
 {
@@ -31,6 +35,16 @@ namespace BlazorSuviIdent.Client
 
 			builder.Services.AddApiAuthorization()
 				.AddAccountClaimsPrincipalFactory<RolesFactory>();
+
+            builder.Services.AddSingleton<Primer>();
+
+            builder.Services.AddSingleton(s =>
+            {
+                var uri = s.GetRequiredService<NavigationManager>().BaseUri;
+                var hc = new HttpClient(new GrpcWebHandler(GrpcWebMode.GrpcWeb, new HttpClientHandler()));
+                var kanal = GrpcChannel.ForAddress(uri, new GrpcChannelOptions { HttpClient = hc });
+                return new ProbniServis.ProbniServisClient(kanal);
+            });
 
 			await builder.Build().RunAsync();
 		}

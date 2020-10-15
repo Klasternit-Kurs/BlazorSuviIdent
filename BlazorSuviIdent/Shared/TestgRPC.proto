@@ -1,0 +1,21 @@
+﻿syntax = "proto3";
+option csharp_namespace="zklj";
+package test;
+
+service ProbniServis {
+	rpc ProbniPoziv (TestPoruka) returns (TestPoruka);
+	rpc Login (LoginPoruka) returns (LoginOdg);
+}
+
+message LoginPoruka {
+	string kor = 1;
+	string pass = 2;
+}
+
+message LoginOdg {
+	bool uspeh = 1;
+}
+
+message TestPoruka {
+	string Nesto = 1;
+}

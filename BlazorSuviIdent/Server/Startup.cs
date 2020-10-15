@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication;
 using System.IdentityModel.Tokens.Jwt;
+using BlazorSuviIdent.Server.Services;
 
 namespace BlazorSuviIdent.Server
 {
@@ -51,6 +52,8 @@ namespace BlazorSuviIdent.Server
 			services.AddAuthentication()
 				.AddIdentityServerJwt();
 
+			services.AddGrpc();
+
 			services.AddSignalR();
 			services.AddControllersWithViews();
 			services.AddRazorPages();
@@ -69,6 +72,8 @@ namespace BlazorSuviIdent.Server
 				app.UseHsts();
 			}
 
+			app.UseGrpcWeb(new GrpcWebOptions { DefaultEnabled = true });
+			
 			app.UseHttpsRedirection();
 			app.UseBlazorFrameworkFiles();
 			app.UseStaticFiles();
@@ -85,6 +90,7 @@ namespace BlazorSuviIdent.Server
 				endpoints.MapControllers();
 				endpoints.MapHub<Hubs.UserMan>("um");
 				endpoints.MapHub<Hubs.Alerter>("al");
+				endpoints.MapGrpcService<ProbniServ>();
 				endpoints.MapFallbackToFile("index.html");
 			});
 		}

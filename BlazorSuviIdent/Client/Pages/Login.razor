@@ -1,9 +1,10 @@
 ﻿@page "/login"
 @using Microsoft.AspNetCore.SignalR.Client
 @using BlazorSuviIdent.Shared
-@using Microsoft.AspNetCore.Http 
+@using Microsoft.AspNetCore.Http
+@using zklj;
 @inject NavigationManager _nm
-@inject HttpClient _hc
+@inject ProbniServis.ProbniServisClient _klijent
 
 
 
@@ -28,7 +29,7 @@
 	private async Task LogIn()
 	{
 		_greska = "";
-		if (await _hc.PostJsonAsync<bool>("LogIn", _reg))
+		if ((await _klijent.LoginAsync(new LoginPoruka {Kor = _reg.Uname, Pass = _reg.Sifra })).Uspeh)
 			_nm.NavigateTo("/", forceLoad: true);
 		else
 			_greska = "No go";

@@ -1,10 +1,27 @@
 ﻿@page "/"
+@using zklj
+@inject Primer _p
+@inject ProbniServis.ProbniServisClient _klijent
 
-<h1>Hello, world!</h1>
+<p>
+	<input @bind="_unos"/>
+	<button @onclick="grpcGO">Teeeeest</button>
+	<p><b>@_odServera</b></p>
+</p>
+<p><b>@_p.Broj</b></p>
+<Counter/>
 
-Welcome to your new app.
-<AuthorizeView>
-	<p>Auth stuff</p>
-</AuthorizeView>
+@code
+{
+	private string _unos;
+	private string _odServera;
+	protected override void OnInitialized()
+	{
+		_p.OnPromena += StateHasChanged;
+	}
 
-<SurveyPrompt Title="How is Blazor working for you?" />
+	private async Task grpcGO()
+	{
+		_odServera = (await _klijent.ProbniPozivAsync(new TestPoruka { Nesto = _unos })).Nesto;
+	}
+}
