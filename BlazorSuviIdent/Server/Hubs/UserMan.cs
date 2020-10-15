@@ -1,4 +1,5 @@
-﻿using BlazorSuviIdent.Shared;
+﻿using BlazorSuviIdent.Server.Modeli;
+using BlazorSuviIdent.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
@@ -32,7 +33,7 @@ namespace BlazorSuviIdent.Server.Hubs
 		{
 			var greske = new List<string>();
 
-			var user = new IdentityUser { Email = reg.Mejl, UserName = reg.Uname };
+			var user = new NekiMojJuzer { Email = reg.Mejl, UserName = reg.Uname, Nesto = "NestoTamo", BlaBla = "Bla" };
 			var rez = await _um.CreateAsync(user, reg.Sifra);
 
 			if (rez.Succeeded)

@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication;
 using System.IdentityModel.Tokens.Jwt;
 using BlazorSuviIdent.Server.Services;
+using BlazorSuviIdent.Server.Modeli;
 
 namespace BlazorSuviIdent.Server
 {
