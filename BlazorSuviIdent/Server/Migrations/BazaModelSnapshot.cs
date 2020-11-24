@@ -130,15 +130,15 @@ namespace BlazorSuviIdent.Server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "b15591a5-5618-4468-be54-ae01a3f3194e",
-                            ConcurrencyStamp = "8b2b0ab3-d19b-4c61-89f8-1c4def4602c6",
+                            Id = "847f81c5-c8e4-46ba-b4c2-30bb083d3064",
+                            ConcurrencyStamp = "be2e84bc-1801-4d26-a8aa-b526e5b2dc50",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "4eb27b3b-4d27-4184-a095-cfa39733984c",
-                            ConcurrencyStamp = "f639b3aa-5a25-4f17-ae11-78512ed69731",
+                            Id = "c7d1f60f-31fe-46b3-8c9b-6cf438935e25",
+                            ConcurrencyStamp = "1f18301f-3dff-4996-ae4c-ed32be699736",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -330,6 +330,16 @@ namespace BlazorSuviIdent.Server.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Osoba");
+                });
+
+            modelBuilder.Entity("BlazorSuviIdent.Shared.Zklj", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("OvoJeZklj")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Zklj");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

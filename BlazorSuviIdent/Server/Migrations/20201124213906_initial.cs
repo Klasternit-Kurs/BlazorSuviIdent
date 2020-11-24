@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace BlazorSuviIdent.Server.Migrations
 {
-    public partial class Initial : Migration
+    public partial class initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -42,7 +42,8 @@ namespace BlazorSuviIdent.Server.Migrations
                     AccessFailedCount = table.Column<int>(nullable: false),
                     Discriminator = table.Column<string>(nullable: false),
                     Ime = table.Column<string>(nullable: true),
-                    Prezime = table.Column<string>(nullable: true)
+                    Prezime = table.Column<string>(nullable: true),
+                    OvoJeZklj = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
@@ -192,12 +193,12 @@ namespace BlazorSuviIdent.Server.Migrations
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "b15591a5-5618-4468-be54-ae01a3f3194e", "8b2b0ab3-d19b-4c61-89f8-1c4def4602c6", "Admin", "ADMIN" });
+                values: new object[] { "847f81c5-c8e4-46ba-b4c2-30bb083d3064", "be2e84bc-1801-4d26-a8aa-b526e5b2dc50", "Admin", "ADMIN" });
 
             migrationBuilder.InsertData(
                 table: "AspNetRoles",
                 columns: new[] { "Id", "ConcurrencyStamp", "Name", "NormalizedName" },
-                values: new object[] { "4eb27b3b-4d27-4184-a095-cfa39733984c", "f639b3aa-5a25-4f17-ae11-78512ed69731", "User", "USER" });
+                values: new object[] { "c7d1f60f-31fe-46b3-8c9b-6cf438935e25", "1f18301f-3dff-4996-ae4c-ed32be699736", "User", "USER" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",

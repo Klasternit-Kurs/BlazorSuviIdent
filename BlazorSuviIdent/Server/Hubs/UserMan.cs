@@ -31,7 +31,7 @@ namespace BlazorSuviIdent.Server.Hubs
 		public async Task Register(Registracija reg)
 		{
 			var greske = new List<string>();
-
+			
 			var user = new Osoba { Email = reg.Mejl, UserName = reg.Uname};
 			var rez = await _um.CreateAsync(user, reg.Sifra);
 

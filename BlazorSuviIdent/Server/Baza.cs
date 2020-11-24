@@ -18,6 +18,7 @@ namespace BlazorSuviIdent.Server
 			DbContextOptions<Baza> options,
 			IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions) {}
 		public DbSet<Osoba> Osobas { get; set; }
+		public DbSet<Zklj> Zkljz { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
