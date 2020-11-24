@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorSuviIdent.Server.Migrations
 {
     [DbContext(typeof(Baza))]
-    [Migration("20200921134220_SeededRoles")]
-    partial class SeededRoles
+    [Migration("20201124203756_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -132,15 +132,15 @@ namespace BlazorSuviIdent.Server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "e9b8b088-f188-4299-bb46-e2ba697192d2",
-                            ConcurrencyStamp = "6e5766e0-2608-4764-9da8-b84dc2157916",
+                            Id = "b15591a5-5618-4468-be54-ae01a3f3194e",
+                            ConcurrencyStamp = "8b2b0ab3-d19b-4c61-89f8-1c4def4602c6",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "f7ecec53-46c4-4976-a0a2-4193bb6c540c",
-                            ConcurrencyStamp = "17cfd4af-933d-400d-966b-1a264361b047",
+                            Id = "4eb27b3b-4d27-4184-a095-cfa39733984c",
+                            ConcurrencyStamp = "f639b3aa-5a25-4f17-ae11-78512ed69731",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -180,6 +180,10 @@ namespace BlazorSuviIdent.Server.Migrations
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Discriminator")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
@@ -233,6 +237,8 @@ namespace BlazorSuviIdent.Server.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+
+                    b.HasDiscriminator<string>("Discriminator").HasValue("IdentityUser");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
@@ -313,6 +319,19 @@ namespace BlazorSuviIdent.Server.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("BlazorSuviIdent.Shared.Osoba", b =>
+                {
+                    b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
+
+                    b.Property<string>("Ime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Prezime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasDiscriminator().HasValue("Osoba");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

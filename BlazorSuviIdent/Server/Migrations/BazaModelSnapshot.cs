@@ -130,15 +130,15 @@ namespace BlazorSuviIdent.Server.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "f1aa4836-ccbc-4462-b0e6-e16c05730aed",
-                            ConcurrencyStamp = "233cf639-c5a1-4ad8-a616-3110ec5b2014",
+                            Id = "b15591a5-5618-4468-be54-ae01a3f3194e",
+                            ConcurrencyStamp = "8b2b0ab3-d19b-4c61-89f8-1c4def4602c6",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "efdd3b8d-ee24-4100-89f4-0a43e4148f30",
-                            ConcurrencyStamp = "804582b3-328b-40ce-a6e1-f87bcc4ff7a6",
+                            Id = "4eb27b3b-4d27-4184-a095-cfa39733984c",
+                            ConcurrencyStamp = "f639b3aa-5a25-4f17-ae11-78512ed69731",
                             Name = "User",
                             NormalizedName = "USER"
                         });
@@ -319,17 +319,17 @@ namespace BlazorSuviIdent.Server.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("BlazorSuviIdent.Server.Modeli.NekiMojJuzer", b =>
+            modelBuilder.Entity("BlazorSuviIdent.Shared.Osoba", b =>
                 {
                     b.HasBaseType("Microsoft.AspNetCore.Identity.IdentityUser");
 
-                    b.Property<string>("BlaBla")
+                    b.Property<string>("Ime")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Nesto")
+                    b.Property<string>("Prezime")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasDiscriminator().HasValue("NekiMojJuzer");
+                    b.HasDiscriminator().HasValue("Osoba");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

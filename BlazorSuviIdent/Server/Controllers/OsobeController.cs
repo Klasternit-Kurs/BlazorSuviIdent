@@ -12,10 +12,10 @@ namespace BlazorSuviIdent.Server.Controllers
 	[Route("[controller]")]
 	public class OsobeController : ControllerBase
 	{
-		private readonly Baza2 _db;
+		private readonly Baza _db;
 		private readonly ILogger<OsobeController> _log;
 
-		public OsobeController(Baza2 db, ILogger<OsobeController> log)
+		public OsobeController(Baza db, ILogger<OsobeController> log)
 		{
 			_log = log;
 			_db = db;

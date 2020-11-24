@@ -1,5 +1,4 @@
-﻿using BlazorSuviIdent.Server.Modeli;
-using BlazorSuviIdent.Shared;
+﻿using BlazorSuviIdent.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.SignalR;
@@ -13,7 +12,7 @@ namespace BlazorSuviIdent.Server.Hubs
 {
 	public class UserMan : Hub
 	{
-		public UserMan(RoleManager<IdentityRole> rm, UserManager<IdentityUser> um, ILogger<UserMan> logger, Baza2 b2)
+		public UserMan(RoleManager<IdentityRole> rm, UserManager<IdentityUser> um, ILogger<UserMan> logger, Baza b2)
 		{
 			_rm = rm;
 			_um = um;
@@ -24,7 +23,7 @@ namespace BlazorSuviIdent.Server.Hubs
 		private readonly RoleManager<IdentityRole> _rm;
 		private readonly UserManager<IdentityUser> _um;
 		private readonly ILogger<UserMan> _logger;
-		private readonly Baza2 _dbTest;
+		private readonly Baza _dbTest;
 
 		public async Task GetRoles() =>
 			await Clients.Caller.SendAsync("RecRoles", _rm.Roles.Select(r => r.Name).ToList());
@@ -33,7 +32,7 @@ namespace BlazorSuviIdent.Server.Hubs
 		{
 			var greske = new List<string>();
 
-			var user = new NekiMojJuzer { Email = reg.Mejl, UserName = reg.Uname, Nesto = "NestoTamo", BlaBla = "Bla" };
+			var user = new Osoba { Email = reg.Mejl, UserName = reg.Uname};
 			var rez = await _um.CreateAsync(user, reg.Sifra);
 
 			if (rez.Succeeded)

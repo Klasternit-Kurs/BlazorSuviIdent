@@ -4,29 +4,33 @@
 @inject Primer _p
 @inject ProbniServis.ProbniServisClient _klijent
 
-<p>
-	<input @bind="_unos"/>
-	<button @onclick="grpcGO">Teeeeest</button>
-	<p><b>@_odServera</b></p>
-</p>
-<p><b>@_p.Broj</b></p>
-<Counter/>
+
+<p><b>@Osoba.Ime</b></p>
+
+<MatTextField Value="Bla"/>
+	
+<MatButton @onclick="(() => { Osoba.Ime = Bla; StateHasChanged(); })">Nesto</MatButton>
 
 @code
 {
+	private string Bla { get; set; }
+	private Osoba Osoba = new Osoba();
 	private string _unos;
 	private string _odServera;
 	protected override void OnInitialized()
 	{
 		_p.OnPromena += StateHasChanged;
 	}
-
+	private void Foo(string s)
+	{
+		StateHasChanged();
+	}
 	private async Task grpcGO()
 	{
 		_odServera = (await _klijent.ProbniPozivAsync(new TestPoruka { Nesto = _unos })).Nesto;
 
 		Osoba o = new Osoba();
-		(_, _, string c) = o;
+		
 
 	}
 }

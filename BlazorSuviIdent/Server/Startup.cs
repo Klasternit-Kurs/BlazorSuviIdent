@@ -11,7 +11,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Authentication;
 using System.IdentityModel.Tokens.Jwt;
 using BlazorSuviIdent.Server.Services;
-using BlazorSuviIdent.Server.Modeli;
 
 namespace BlazorSuviIdent.Server
 {
@@ -27,9 +26,6 @@ namespace BlazorSuviIdent.Server
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services.AddDbContext<Baza>(options =>
-				options.UseSqlServer(
-					Configuration.GetConnectionString("Baza")));
-			services.AddDbContext<Baza2>(options =>
 				options.UseSqlServer(
 					Configuration.GetConnectionString("Baza")));
 

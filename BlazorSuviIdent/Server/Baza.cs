@@ -1,4 +1,4 @@
-﻿using BlazorSuviIdent.Server.Modeli;
+﻿using BlazorSuviIdent.Shared;
 using IdentityServer4.EntityFramework.Options;
 using Microsoft.AspNetCore.ApiAuthorization.IdentityServer;
 using Microsoft.AspNetCore.Identity;
@@ -14,11 +14,10 @@ namespace BlazorSuviIdent.Server
 	public class Baza : ApiAuthorizationDbContext<IdentityUser>
 	{
 
-		DbSet<NekiMojJuzer> NekiMojJuzers { get; set; }
-
 		public Baza(
 			DbContextOptions<Baza> options,
 			IOptions<OperationalStoreOptions> operationalStoreOptions) : base(options, operationalStoreOptions) {}
+		public DbSet<Osoba> Osobas { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder builder)
 		{
